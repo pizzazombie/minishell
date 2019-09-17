@@ -25,4 +25,12 @@
 # include <signal.h>
 # include <dirent.h>
 
+typedef struct		s_shell
+{
+	char			*location;
+	//struct s_param	*next;
+}					t_shell;
+
+void	ft_print_env(char **env);
+
 #endif 
