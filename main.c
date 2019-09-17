@@ -113,8 +113,20 @@ void	ft_env(char **env, char *str)
 	}
 	
 }
-
 int	ft_env_index(char **env, char *name)
+{
+	int i;
+	
+	i = 0;
+	while (env[i] != 0)
+	{
+		if (strncmp(env[i], name, ft_strlen(name)) == 0)
+			return (i);
+		i++;
+	}
+	return (i);
+}
+int	ft_find_env_var(char **env, char *name)
 {
 	int i;
 	
@@ -147,9 +159,9 @@ char	**set_env_var(char **env, char *key, char *value)
 	int		pos;
 	char	*tmp;
 
-	pos = ft_env_index(env, key);
+	pos = ft_find_env_var(env, key);
 	tmp = ft_strjoin("=", value);
-	if (env[pos])
+	if (pos != -1 && env[pos])
 	{
 		free(env[pos]);
 		if (value)
@@ -160,6 +172,7 @@ char	**set_env_var(char **env, char *key, char *value)
 	else
 	{
 		env = realloc_envv(env, pos + 1);
+		ft_putstr("WEEEEEEEEEEEEE\n");
 		if (value)
 			env[pos] = ft_strjoin(key, tmp);
 		else
@@ -201,7 +214,7 @@ void	ft_setenv(char **env, char *str)
 
 	args = ft_strsplit(str, ' ');
 	ft_printf("args:%s %s\n", args[1], args[2]);
-	if ((index = ft_env_index(env, args[1])) == -1)
+	if ((index = ft_find_env_var(env, args[1])) == -1)
 		ft_new_env_var();
 	else
 		env = set_env_var(env, args[1], args[2]);
