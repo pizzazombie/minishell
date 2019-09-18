@@ -28,9 +28,29 @@
 typedef struct		s_shell
 {
 	char			*location;
+	char			**env;
 	//struct s_param	*next;
 }					t_shell;
 
-void	ft_print_env(char **env);
+void	ft_print_env(t_shell *shell);
+void	ft_display_path(t_shell *shell);
+char **ft_init_env(char **environ);
+void	ft_free_mas(char **arr);
+void	ft_del(char **arr, char *str, char **env);
+void	ft_init_shell(t_shell *shell);
 
+/*
+**  commands
+*/
+void	ft_cd(char *str);
+void	ft_echo(char *str);
+void	ft_pwd(char *str, t_shell *shell);
+void	ft_env(t_shell *shell, char *str);
+void	ft_setenv(t_shell *shell, char *str);
+
+/*
+**  env
+*/
+
+char	**set_env_var(t_shell *shell, char *key, char *value);
 #endif 
