@@ -52,5 +52,6 @@ void	ft_setenv(t_shell *shell, char *str);
 **  env
 */
 
-char	**set_env_var(t_shell *shell, char *key, char *value);
+char	**set_env_var(t_shell *shell, char *name, char *value, int replace);
+int	ft_find_env_var(char **env, char *name);
 #endif 
