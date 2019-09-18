@@ -64,6 +64,7 @@ void	ft_init_shell(t_shell *shell)
 	shell = (t_shell *)malloc(sizeof(t_shell));
 	shell->location = NULL;
 	shell->env = NULL;
+	shell->env_vars = 0;
 }
 
 void	ft_print_env(t_shell *shell)
@@ -79,7 +80,7 @@ void	ft_print_env(t_shell *shell)
 //	ft_putstr("env printed!\n");
 }
 
-char **ft_init_env(char **environ)
+char **ft_init_env(char **environ, t_shell *shell)
 {
 	char **env;
 	int i;
@@ -92,6 +93,7 @@ char **ft_init_env(char **environ)
 			return (NULL);
 		i++;
 	}
+	shell->env_vars	= i;
 	env[i] = 0;
 	return (env);
 }

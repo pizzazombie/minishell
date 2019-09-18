@@ -27,6 +27,7 @@
 
 typedef struct		s_shell
 {
+	int				env_vars;
 	char			*location;
 	char			**env;
 	//struct s_param	*next;
@@ -34,7 +35,7 @@ typedef struct		s_shell
 
 void	ft_print_env(t_shell *shell);
 void	ft_display_path(t_shell *shell);
-char **ft_init_env(char **environ);
+char **ft_init_env(char **environ, t_shell *shell);
 void	ft_free_mas(char **arr);
 void	ft_del(char **arr, char *str, char **env);
 void	ft_init_shell(t_shell *shell);
@@ -52,6 +53,7 @@ void	ft_setenv(t_shell *shell, char *str);
 **  env
 */
 
-char	**set_env_var(t_shell *shell, char *name, char *value, int replace);
+char	**set_env_var(t_shell *shell, char *name, char *value);
 int	ft_find_env_var(char **env, char *name);
+
 #endif 

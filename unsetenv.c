@@ -12,58 +12,54 @@
 
 #include "shell.h"
 
-void	ft_cd(char *str)
+void		remove_env_var(int pos, char **env)
 {
-	ft_putchar('\n');
+	free(env[pos]);
+	env[pos] = NULL;
+	env[pos] = ft_memalloc(2);
 }
-void	ft_echo(char *str)
+void	ft_remove_var(t_shell *shell, char *name)
 {
+	int index;
 	int i;
+	char **new_env;
 
-	i = 0;
-	while (str[i] == ' ')
+	if ((index = ft_find_env_var(shell->env, name)) != -1)
 	{
+		new_env = (char **)ft_memalloc(sizeof(char *) * (shell->env_vars - 1));
+	i = 0;
+	while (i < index)
+	{
+		new_env[i] = ft_strdup(shell->env[i]);
+		free(shell->env[i]);
+	}
+	free(shell->env[i]);
+	i++;
+	while (i <= shell->env_vars)
+	{
+		new_env[i - 1] = ft_strdup(shell->env[i]);
 		i++;
 	}
-	ft_putstr(str + i);
-	ft_putchar('\n');
-}
-void	ft_pwd(char *str, t_shell *shell)
-{
-	char **args = ft_strsplit(str, ' ');
-
-	if (args[1] != 0)
-		ft_putstr("pwd: too many arguments\n");
-	else
-	{
-		ft_printf("%s\n", shell->location);
+	new_env[i - 1] = 0;
+	free(shell->env);
+	shell->env = new_env;
 	}
-	
 }
-void	ft_env(t_shell *shell, char *str)
+void	ft_unsetenv(t_shell *shell, char *str)
 {
 	char **args;
+	int i;
 
-	
-	if (str[3] == '\0' || str[3] == ';')
-	{
-		ft_print_env(shell);
-		
-	}
+	args = ft_strsplit(str, ' ');
+	i = 1;
+	if (args[1] == 0)
+		ft_putendl("unsetenv: Too few arguments.");
 	else
 	{
-		args = ft_strsplit(str, ' ');
-		if (args[1])
+		while (args[i] != 0)
 		{
-			if (args[2])
-			{
-				ft_putendl("setenv: Too many arguments.");
-				ft_free_mas(args);
-				return ;
-			}
-			ft_print_env(shell);
+			ft_remove_var(shell, args[i]);
 		}
-		ft_free_mas(args);
 	}
 	
 }

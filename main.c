@@ -12,8 +12,6 @@
 
 #include "shell.h"
 
-
-
 int	ft_run_commands(char **commands, t_shell *shell)
 {
 	int i;
@@ -31,6 +29,8 @@ int	ft_run_commands(char **commands, t_shell *shell)
 			ft_cd(commands[i]);
 		else if (ft_strncmp(commands[i], "setenv ", 7) == 0)
 			ft_setenv(shell, commands[i]);
+		else if (ft_strncmp(commands[i], "unsetenv ", 8) == 0)
+			ft_unsetenv(shell, commands[i]);
 		else if (ft_strncmp(commands[i], "env", 3) == 0)
 			ft_env(shell, commands[i]);
 		else if (ft_strncmp(commands[i], "pwd", 3) == 0)
@@ -133,7 +133,7 @@ int main(int ac, char **av, char **environ)
 	t_shell shell;
 
 	ft_init_shell(&shell);
-	if ( (shell.env = ft_init_env(environ)) == NULL)
+	if ( (shell.env = ft_init_env(environ, &shell)) == NULL)
 		return (1);
 	str = ft_strnew(100);
 	while (1)
