@@ -59,7 +59,7 @@ int	ft_find_env_var(char **env, char *name)
 	temp = ft_strjoin(name, "=");
 	while (env[i] != 0)
 	{
-		if (strncmp(env[i], temp, ft_strlen(name)) == 0)
+		if (strncmp(env[i], temp, ft_strlen(temp)) == 0)
 		{
 			free(temp);
 			return (i);
@@ -75,7 +75,7 @@ char	**realloc_envv(char **env, int new_size)
 	char	**new;
 	int		i;
 
-	new = (char **)ft_memalloc(sizeof(char *) * (new_size + 1));
+	new = (char **)malloc(sizeof(char *) * (new_size + 1));
 	i = -1;
 	while (env[++i] && i < new_size)
 	{

@@ -38,7 +38,7 @@ void	ft_free_mas(char **arr)
 	free(arr);
 }
 
-void	ft_del(char **arr, char *str, char **env)
+void	ft_del(char **arr, char *str, t_shell *shell)
 {
 	int i;
 
@@ -51,12 +51,12 @@ void	ft_del(char **arr, char *str, char **env)
 	free(arr);
 	free(str);
 	i = 0;
-	while (env[i] != 0)
+	while (shell->env[i] != 0)
 	{
-		free(env[i]);
+		free(shell->env[i]);
 		i++;
 	}
-	free(env);
+	free(shell->env);
 }
 
 void	ft_init_shell(t_shell *shell)

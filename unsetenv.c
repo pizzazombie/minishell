@@ -12,12 +12,7 @@
 
 #include "shell.h"
 
-void		remove_env_var(int pos, char **env)
-{
-	free(env[pos]);
-	env[pos] = NULL;
-	env[pos] = ft_memalloc(2);
-}
+
 void	ft_remove_var(t_shell *shell, char *name)
 {
 	int index;
@@ -26,23 +21,26 @@ void	ft_remove_var(t_shell *shell, char *name)
 
 	if ((index = ft_find_env_var(shell->env, name)) != -1)
 	{
-		new_env = (char **)ft_memalloc(sizeof(char *) * (shell->env_vars - 1));
-	i = 0;
-	while (i < index)
-	{
-		new_env[i] = ft_strdup(shell->env[i]);
+		new_env = (char **)malloc(sizeof(char *) * (shell->env_vars - 1));
+		i = 0;
+		while (i < index)
+		{
+			new_env[i] = ft_strdup(shell->env[i]);
+			free(shell->env[i]);
+			i++;
+		}
 		free(shell->env[i]);
-	}
-	free(shell->env[i]);
-	i++;
-	while (i <= shell->env_vars)
-	{
-		new_env[i - 1] = ft_strdup(shell->env[i]);
 		i++;
-	}
-	new_env[i - 1] = 0;
-	free(shell->env);
-	shell->env = new_env;
+		while (shell->env[i] != 0)
+		{
+			new_env[i - 1] = ft_strdup(shell->env[i]);
+			free(shell->env[i]);
+			i++;
+		}
+		new_env[i - 1] = 0;
+		free(shell->env);
+		shell->env = new_env;
+		shell->env_vars--;
 	}
 }
 void	ft_unsetenv(t_shell *shell, char *str)
@@ -59,7 +57,9 @@ void	ft_unsetenv(t_shell *shell, char *str)
 		while (args[i] != 0)
 		{
 			ft_remove_var(shell, args[i]);
+			i++;
 		}
 	}
+	ft_free_mas(args);
 	
 }
