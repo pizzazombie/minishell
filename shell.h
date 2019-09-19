@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <dirent.h>
+#include <sys/wait.h>
 
 typedef struct		s_shell
 {
@@ -40,6 +41,7 @@ void	ft_free_mas(char **arr);
 void	ft_del(char **arr, char *str, t_shell *shell);
 void	ft_init_shell(t_shell *shell);
 char			**ft_strsplit_wide(char const *str, char c);
+int	ft_run_commands(char **commands, t_shell *shell);
 
 /*
 **  commands
@@ -56,7 +58,7 @@ void	ft_unsetenv(t_shell *shell, char *str);
 */
 
 char	**set_env_var(t_shell *shell, char *name, char *value);
-int	ft_find_env_var(char **env, char *name);
+int	ft_find_env_var(char **env, const char *name);
 
 
 #endif 

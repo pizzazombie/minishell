@@ -12,40 +12,6 @@
 
 #include "shell.h"
 
-int	ft_run_commands(char **commands, t_shell *shell)
-{
-	int i;
-
-	i = 0;
-	while (commands[i] != 0)
-	{
-		if (ft_strncmp(commands[i], "exit", 4) == 0)
-		{
-			return (1);
-		}
-		else if (ft_strncmp(commands[i], "echo ", 5) == 0)
-			ft_echo(commands[i] + 5);
-		else if (ft_strncmp(commands[i], "cd ", 3) == 0)
-			ft_cd(commands[i]);
-		else if (ft_strncmp(commands[i], "setenv ", 7) == 0)
-			ft_setenv(shell, commands[i]);
-		else if (ft_strncmp(commands[i], "unsetenv ", 8) == 0)
-			ft_unsetenv(shell, commands[i]);
-		else if (ft_strncmp(commands[i], "env", 3) == 0)
-			ft_env(shell, commands[i]);
-		else if (ft_strncmp(commands[i], "pwd", 3) == 0)
-			ft_pwd(commands[i], shell);
-		//ft_putchar('\n');
-		else
-		{
-			ft_putstr("minishell: command not found: ");
-			ft_putendl(commands[i]);
-		}
-	//	ft_putchar('\n');
-		i++;
-	}
-	return (0);
-}
 int	ft_check_name_length(char *str)
 {
 	int i;

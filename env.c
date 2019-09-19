@@ -50,7 +50,7 @@ int	ft_env_index(char **env, char *name)
 	free(temp);
 	return (i);
 }
-int	ft_find_env_var(char **env, char *name)
+int	ft_find_env_var(char **env, const char *name)
 {
 	int i;
 	char *temp;
