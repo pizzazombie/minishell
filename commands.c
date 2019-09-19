@@ -19,18 +19,27 @@ void	ft_cd(char *str)
 void	ft_echo(char *str)
 {
 	int i;
+	int j;
+	char **args;
 
 	i = 0;
-	while (str[i] == ' ')
+	args = ft_strsplit_wide(str, ' ');
+	while (args[i] != 0)
 	{
+		j = 0;
+		while (args[i][j] == ' ')
+		{
+			j++;
+		}
+		ft_putstr(args[i] + j);
+		ft_putchar('\n');
 		i++;
 	}
-	ft_putstr(str + i);
-	ft_putchar('\n');
+	ft_free_mas(args);
 }
 void	ft_pwd(char *str, t_shell *shell)
 {
-	char **args = ft_strsplit(str, ' ');
+	char **args = ft_strsplit_wide(str, ' ');
 
 	if (args[1] != 0)
 		ft_putstr("pwd: too many arguments\n");
@@ -52,7 +61,7 @@ void	ft_env(t_shell *shell, char *str)
 	}
 	else
 	{
-		args = ft_strsplit(str, ' ');
+		args = ft_strsplit_wide(str, ' ');
 		if (args[1])
 		{
 			if (args[2])

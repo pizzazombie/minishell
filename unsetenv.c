@@ -83,7 +83,7 @@ void	ft_unsetenv(t_shell *shell, char *str)
 	char **args;
 	int i;
 
-	args = ft_strsplit(str, ' ');
+	args = ft_strsplit_wide(str, ' ');
 	i = 1;
 	if (args[1] == 0)
 		ft_putendl("unsetenv: Too few arguments.");
@@ -95,7 +95,7 @@ void	ft_unsetenv(t_shell *shell, char *str)
 			i++;
 		}
 	}
-	printf("удаление прошло успешно!\n");
+	ft_printf("удаление прошло успешно!\n");
 	ft_free_mas(args);
 	
 }

@@ -142,7 +142,7 @@ int main(int ac, char **av, char **environ)
 		get_next_line(0, &str);
 		str = ft_parse_input(&shell, str);
 //		ft_printf("%s\n", str);
-		commands = ft_strsplit(str, ';');
+		commands = ft_strsplit_wide(str, ';');
 		if (ft_run_commands(commands, &shell) == 1)
 		{
 			ft_del(commands, str, &shell);

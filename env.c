@@ -144,7 +144,7 @@ void	ft_setenv(t_shell *shell, char *str)
 	char **args;
 	int index;
 
-	args = ft_strsplit(str, ' ');
+	args = ft_strsplit_wide(str, ' ');
 //	ft_printf("args:%s %s\n", args[1], args[2]);
 /*	if ((index = ft_find_env_var(shell->env, args[1])) == -1)
 		ft_new_env_var();

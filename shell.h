@@ -39,6 +39,7 @@ char **ft_init_env(char **environ, t_shell *shell);
 void	ft_free_mas(char **arr);
 void	ft_del(char **arr, char *str, t_shell *shell);
 void	ft_init_shell(t_shell *shell);
+char			**ft_strsplit_wide(char const *str, char c);
 
 /*
 **  commands
@@ -56,5 +57,6 @@ void	ft_unsetenv(t_shell *shell, char *str);
 
 char	**set_env_var(t_shell *shell, char *name, char *value);
 int	ft_find_env_var(char **env, char *name);
+
 
 #endif 
