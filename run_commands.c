@@ -61,6 +61,33 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
     ft_free_mas(args);
     return (-1);
 }
+void    ft_command_not_found(char *str)
+{
+    char **args;
+
+    args = ft_strsplit_wide(str, ' ');
+    ft_putstr("minishell: command not found: ");
+	ft_putendl(args[0]);
+    ft_free_mas(args);
+}
+
+int    ft_exit(char *str)
+{
+    char **args;
+
+    args = ft_strsplit_wide(str, ' ');
+    if ((args[0][4] == '\0' || args[0][4] == ' ') && args[1] == 0)
+    {
+        ft_free_mas(args);
+        return (1);
+    }
+    if (args[0][4] != '\0' && args[0][4] != ' ')
+        ft_command_not_found(args[0]);
+    else
+        ft_putendl("exit: Expression Syntax.");
+    ft_free_mas(args);
+    return (-1);
+}
 int	ft_run_commands(char **commands, t_shell *shell)
 {
 	int i;
@@ -70,15 +97,16 @@ int	ft_run_commands(char **commands, t_shell *shell)
 	{
 		if (ft_strncmp(commands[i], "exit", 4) == 0)
 		{
-			return (1);
+            if (ft_exit(commands[i]) == 1)
+                return (1);
 		}
 		else if (ft_strncmp(commands[i], "echo ", 5) == 0)
 			ft_echo(commands[i] + 5);
 		else if (ft_strncmp(commands[i], "cd ", 3) == 0)
 			ft_cd(commands[i]);
-		else if (ft_strncmp(commands[i], "setenv ", 7) == 0)
+		else if (ft_strncmp(commands[i], "setenv ", 6) == 0)
 			ft_setenv(shell, commands[i]);
-		else if (ft_strncmp(commands[i], "unsetenv ", 8) == 0)
+		else if (ft_strncmp(commands[i], "unsetenv", 8) == 0)
 			ft_unsetenv(shell, commands[i]);
 		else if (ft_strncmp(commands[i], "env", 3) == 0)
 			ft_env(shell, commands[i]);
@@ -86,8 +114,7 @@ int	ft_run_commands(char **commands, t_shell *shell)
 //			ft_pwd(commands[i], shell);
         else if (check_bin_in_path_and_run(shell, commands[i]) == -1)
         {
-			ft_putstr("minishell: command not found: ");
-			ft_putendl(commands[i]);
+			ft_command_not_found(commands[i]);
 		}
 		//ft_putchar('\n');
 /*		else

@@ -50,6 +50,7 @@ int	ft_env_index(char **env, char *name)
 	free(temp);
 	return (i);
 }
+
 int	ft_find_env_var(char **env, const char *name)
 {
 	int i;
@@ -70,93 +71,37 @@ int	ft_find_env_var(char **env, const char *name)
 	free(temp);
 	return (-1);
 }
-char	**realloc_envv(char **env, int new_size)
-{
-	char	**new;
-	int		i;
 
-	new = (char **)malloc(sizeof(char *) * (new_size + 1));
-	i = -1;
-	while (env[++i] && i < new_size)
-	{
-		new[i] = ft_strdup(env[i]);
-		free(env[i]);
-	}
-	free(env);
-	return (new);
-}
-char	**set_env_var(t_shell *shell, char *name, char *value)
+void	ft_env(t_shell *shell, char *str)
 {
-	int		pos;
-	char	*tmp;
+	char **args;
 
-	pos = ft_env_index(shell->env, name);
-	tmp = ft_strjoin("=", value);
-	if (shell->env[pos])
+	args = ft_strsplit_wide(str, ' ');
+
+	if (args[0][3] == '\0' && args[1] == 0)
 	{
+		ft_print_env(shell);
 		
-		free(shell->env[pos]);
-		if (value)
-			shell->env[pos] = ft_strjoin(name, tmp);
-		else
-			shell->env[pos] = ft_strjoin(name, "=");
+	}
+	else if (args[0][3] != '\0')
+	{
+		ft_putstr("minishell: command not found: ");
+		ft_putendl(args[0]);
 	}
 	else
 	{
-		shell->env = realloc_envv(shell->env, pos + 1);
-		shell->env_vars++;
-		if (value)
-			shell->env[pos] = ft_strjoin(name, tmp);
-		else
-			shell->env[pos] = ft_strjoin(name, "=");
-		ft_printf("%s variable done\n", name);
+		//args = ft_strsplit_wide(str, ' ');
+		if (args[1])
+		{
+			if (args[2])
+			{
+				ft_putendl("setenv: Too many arguments.");
+				ft_free_mas(args);
+				return ;
+			}
+			ft_print_env(shell);
+		}
+		
 	}
-	free(tmp);
-	return (shell->env);
-}
-
-/*char **ft_set_env_var(char **env, int i, char *value)
-{
-	char *str;
-	char *temp;
-	int j;
-
-	str = ft_strnew(ft_strlen(env[i] + ft_strlen(value)));
-	j = 0;
-	while (env[i][j] != '=' && env[i][j] != '\0')
-	{
-		str[j] = env[i][j];
-		j++;
-	}
-	str[j] = env[i][j];
-	temp = ft_strjoin(str, value);
-	free(env[i]);
-	free(str);
-	env[i] = NULL;
-	env[i] = temp;;
-	return (env);
-}*/
-
-
-
-void	ft_setenv(t_shell *shell, char *str)
-{
-	char **args;
-	int index;
-
-	args = ft_strsplit_wide(str, ' ');
-//	ft_printf("args:%s %s\n", args[1], args[2]);
-/*	if ((index = ft_find_env_var(shell->env, args[1])) == -1)
-		ft_new_env_var();
-	else*/
-//	if (args[3] == 0 && ft_find_env_var(shell->env, args[1]) != -1)
-//		ft_putstr("no \"replace\" argument here, nothing to be done\n");
-	/*if (args[3] != 0 && args[3][0] == '0')
-		shell->env = set_env_var(shell, args[1], args[2]);
-	else*/
-		shell->env = set_env_var(shell, args[1], args[2]);
-	
-		//env = ft_set_env_var(env, index, args[2]);
 	ft_free_mas(args);
-	return ;
 }

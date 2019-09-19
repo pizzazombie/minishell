@@ -85,17 +85,26 @@ void	ft_unsetenv(t_shell *shell, char *str)
 
 	args = ft_strsplit_wide(str, ' ');
 	i = 1;
-	if (args[1] == 0)
-		ft_putendl("unsetenv: Too few arguments.");
-	else
+	if (args[0][8] == '\0' || args[0][8] == ' ')
 	{
-		while (args[i] != 0)
+		if (args[1] == 0)
+			ft_putendl("unsetenv: Too few arguments.");
+		else
 		{
-			shell->env = ft_remove_var(shell, args[i]);
-			i++;
+			while (args[i] != 0)
+			{
+				shell->env = ft_remove_var(shell, args[i]);
+				i++;
+			}
 		}
 	}
-	ft_printf("удаление прошло успешно!\n");
+	else
+	{
+		ft_putstr("minishell: command not found: ");
+		ft_putendl(args[0]);
+	}
+	
+//	ft_printf("удаление прошло успешно!\n");
 	ft_free_mas(args);
 	
 }

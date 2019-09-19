@@ -59,6 +59,7 @@ void	ft_unsetenv(t_shell *shell, char *str);
 
 char	**set_env_var(t_shell *shell, char *name, char *value);
 int	ft_find_env_var(char **env, const char *name);
-
+int	ft_env_index(char **env, char *name);
+char	*get_env_var(char **env, char *var);
 
 #endif 

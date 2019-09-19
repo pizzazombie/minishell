@@ -49,30 +49,3 @@ void	ft_pwd(char *str, t_shell *shell)
 	}
 	
 }
-void	ft_env(t_shell *shell, char *str)
-{
-	char **args;
-
-	
-	if (str[3] == '\0' || str[3] == ';')
-	{
-		ft_print_env(shell);
-		
-	}
-	else
-	{
-		args = ft_strsplit_wide(str, ' ');
-		if (args[1])
-		{
-			if (args[2])
-			{
-				ft_putendl("setenv: Too many arguments.");
-				ft_free_mas(args);
-				return ;
-			}
-			ft_print_env(shell);
-		}
-		ft_free_mas(args);
-	}
-	
-}
