@@ -53,7 +53,9 @@ void	ft_del(char **arr, char *str, t_shell *shell)
 	i = 0;
 	while (shell->env[i] != 0)
 	{
+//		printf("фришу %d строку с именем %s\n", i, shell->env[i]);
 		free(shell->env[i]);
+		
 		i++;
 	}
 	free(shell->env);

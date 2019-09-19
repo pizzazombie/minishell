@@ -12,8 +12,61 @@
 
 #include "shell.h"
 
+int ft_env_len(char **arr)
+{
+	int i;
+	i = 0;
 
-void	ft_remove_var(t_shell *shell, char *name)
+	while (arr[i] != 0)
+		i++;
+	return (i);
+}
+char **ft_remove_var(t_shell *shell, char *name)
+{
+	int index;
+	int i;
+	int j;
+	char **new_env;
+
+	if ((index = ft_find_env_var(shell->env, name)) != -1)
+	{
+	//	printf("вделяем память под новый массив\n");
+		new_env = (char **)malloc(sizeof(char *) * (ft_env_len(shell->env)));
+		i = 0;
+		j = 0;
+		while (i < index)
+		{
+			new_env[i] = ft_strdup(shell->env[j]);
+	//		printf("копирую и фришу строку %s\n", shell->env[j]);
+			free(shell->env[j]);
+			i++;
+			j++;
+		}
+		//new_env[i] = ft_strdup(shell->env[j]);
+		free(shell->env[j]);
+		j++;
+		//i--;
+		while (shell->env[j] != 0)
+		{
+			new_env[i] = ft_strdup(shell->env[j]);
+			free(shell->env[j]);
+			i++;
+			j++;
+		}
+		new_env[i] = 0;
+		free(shell->env);
+		
+		shell->env_vars--;
+		return (new_env);
+
+	}
+	else
+	{
+		return (shell->env);
+	}
+	
+}
+void	ft_remove_var22(t_shell *shell, char *name)
 {
 	int index;
 	int i;
@@ -21,26 +74,8 @@ void	ft_remove_var(t_shell *shell, char *name)
 
 	if ((index = ft_find_env_var(shell->env, name)) != -1)
 	{
-		new_env = (char **)malloc(sizeof(char *) * (shell->env_vars - 1));
-		i = 0;
-		while (i < index)
-		{
-			new_env[i] = ft_strdup(shell->env[i]);
-			free(shell->env[i]);
-			i++;
-		}
-		free(shell->env[i]);
-		i++;
-		while (shell->env[i] != 0)
-		{
-			new_env[i - 1] = ft_strdup(shell->env[i]);
-			free(shell->env[i]);
-			i++;
-		}
-		new_env[i - 1] = 0;
-		free(shell->env);
-		shell->env = new_env;
-		shell->env_vars--;
+		free(shell->env[index]);
+		shell->env[index] = 0;
 	}
 }
 void	ft_unsetenv(t_shell *shell, char *str)
@@ -56,10 +91,11 @@ void	ft_unsetenv(t_shell *shell, char *str)
 	{
 		while (args[i] != 0)
 		{
-			ft_remove_var(shell, args[i]);
+			shell->env = ft_remove_var(shell, args[i]);
 			i++;
 		}
 	}
+	printf("удаление прошло успешно!\n");
 	ft_free_mas(args);
 	
 }
