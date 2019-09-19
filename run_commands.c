@@ -17,7 +17,8 @@ void    ft_run_bin(char *lock, char **args, char **env)
     pid_t pid;
 
     pid = fork();
-    execve(lock, args, env);
+    if (pid == 0)
+        execve(lock, args, env);
     wait(&pid);
 }
 int check_bin_in_path_and_run(t_shell *shell, char *str)
@@ -37,7 +38,7 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
         ft_free_mas(args);
         return (-1);
     }
-    ft_printf("PATH=%s\n", shell->env[index]);
+ //   ft_printf("PATH=%s\n", shell->env[index]);
     path = ft_strsplit_wide(shell->env[index], ':');
     i = 0;
     while (path[i] != 0)
@@ -46,10 +47,10 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
         
         lock = ft_strjoin(temp, args[0]);
         free(temp);
-        ft_printf("lock = %s\n", lock);
+ //       ft_printf("lock = %s\n", lock);
         if (lstat(lock, &bin_stat) != -1)
         {
-            ft_printf("WEEEEEEE!!!!!! Find it!\n");
+ //           ft_printf("WEEEEEEE!!!!!! Find it!\n");
             ft_run_bin(lock, args, shell->env);
             
             return (1);
@@ -89,11 +90,11 @@ int	ft_run_commands(char **commands, t_shell *shell)
 			ft_putendl(commands[i]);
 		}
 		//ft_putchar('\n');
-		else
+/*		else
 		{
 			ft_putstr("minishell: command not found: ");
 			ft_putendl(commands[i]);
-		}
+		}*/
 	//	ft_putchar('\n');
 		i++;
 	}
