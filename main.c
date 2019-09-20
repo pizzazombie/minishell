@@ -98,10 +98,11 @@ int main(int ac, char **av, char **environ)
 
 	t_shell shell;
 
+
 	ft_init_shell(&shell);
-	if ( (shell.env = ft_init_env(environ, &shell)) == NULL)
+	if ((shell.env = ft_init_env(environ, &shell)) == NULL)
 		return (1);
-	str = ft_strnew(100);
+	//str = ft_strnew(100);
 	while (1)
 	{
 		ft_display_path(&shell);
@@ -112,10 +113,14 @@ int main(int ac, char **av, char **environ)
 		if (ft_run_commands(commands, &shell) == 1)
 		{
 			ft_del(commands, str, &shell);
+		//	ft_printf("WOWOWO\n");
+			//free(&shell); why abort???(
 			return (0);
 		}
 		else
 		{
+			ft_free_mas(commands);
+			free(str);
 			continue ;
 		}
 		

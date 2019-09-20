@@ -21,7 +21,7 @@ void	ft_display_path(t_shell *shell)
 	str = getcwd(buf, 4000);
 	ft_printf("\033[34;1;1m%s\033[0m", str);
 	ft_putstr("(つಠ ʖ̯ ಠ)つ");
-	shell->location = str;
+	//shell->location = str;
 	//free(str);
 }
 
@@ -59,11 +59,14 @@ void	ft_del(char **arr, char *str, t_shell *shell)
 		i++;
 	}
 	free(shell->env);
+	//make
+//	if (shell != NULL)
+//		free(shell);
 }
 
 void	ft_init_shell(t_shell *shell)
 {
-	shell = (t_shell *)malloc(sizeof(t_shell));
+	shell = (t_shell *)malloc(sizeof(shell));
 	shell->location = NULL;
 	shell->env = NULL;
 	shell->env_vars = 0;
@@ -88,7 +91,7 @@ char **ft_init_env(char **environ, t_shell *shell)
 	int i;
 
 	i = 0;
-	env = (char **)malloc(sizeof(char*) * 28);
+	env = (char **)malloc(sizeof(char*) * ft_env_len(environ));
 	while (environ[i] != 0)
 	{
 		if ((env[i] = ft_strdup(environ[i])) == NULL)

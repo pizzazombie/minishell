@@ -16,14 +16,61 @@ void	ft_cd(char *str)
 {
 	ft_putchar('\n');
 }
-void	ft_echo(char *str)
+int ft_str_len_without_br(char *str)
+{
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == 34 || str[i] == 39)
+			k++;
+		i++;
+	}
+	return (i - k);
+}
+char *ft_brakets(char *str)
+{
+	int i;
+	int k;
+	char *temp;
+
+	i = 0;
+	k = 0;
+	temp = ft_strnew(ft_str_len_without_br(str));
+	while (str[i] != '\0')
+	{
+		if (str[i] == 34 || str[i] == 39)
+			i++;
+		else
+		{
+			temp[k] = str[i];
+			k++;
+			i++;
+		}
+	}
+	//free(str);
+	return (temp);
+}
+void	ft_echo(char *str1)
 {
 	int i;
 	int j;
+	char *str;
 	char **args;
+	int index;
 
 	i = 0;
+	index = 0;
+	str = ft_brakets(str1);
 	args = ft_strsplit_wide(str, ' ');
+	if (ft_strncmp(args[0], "-n", 2) == 0 && args[0][2] == '\0')
+	{
+		i++;
+		index++;
+	}
 	while (args[i] != 0)
 	{
 		j = 0;
@@ -32,10 +79,13 @@ void	ft_echo(char *str)
 			j++;
 		}
 		ft_putstr(args[i] + j);
-		ft_putchar('\n');
+		ft_putchar(' ');
 		i++;
 	}
+	if (index == 0)
+		ft_putchar('\n');
 	ft_free_mas(args);
+	free(str);
 }
 void	ft_pwd(char *str, t_shell *shell)
 {

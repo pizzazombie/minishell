@@ -12,6 +12,28 @@
 
 #include "shell.h"
 
+static int		ft_sum(char const *str, char c)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != c)
+		{
+			while (str[i] != c && str[i] != '\0')
+				i++;
+			k++;
+		}
+		else
+			while (str[i] == c)
+				i++;
+	}
+	return (k);
+}
+
 static void		del(char **s, int i)
 {
 	while (i >= 0)
@@ -37,7 +59,7 @@ static int		slovo(char **s, char const *str, char c)
 		{
 			while (str[i] != c && str[i++] != '\0')
 				j++;
-			s[k] = (char*)malloc(sizeof(**s) * (j + 1));
+			s[k] = (char*)malloc(sizeof(char) * (j + 1));
 			if (!(s[k]))
 			{
 				del(s, k);
@@ -46,7 +68,8 @@ static int		slovo(char **s, char const *str, char c)
 			k++;
 		}
 		else
-			i++;
+			while (str[i] == c)
+				i++;
 	}
 	return (1);
 }
@@ -85,8 +108,8 @@ char			**ft_strsplit_wide(char const *str, char c)
 	i = 0;
 	if (!(str))
 		return (NULL);
-	sum = ft_sum_w(str, c);
-	s = (char**)malloc(sizeof(*s) * (sum + 1));
+	sum = ft_sum(str, c);
+	s = (char**)malloc(sizeof(char *) * (sum + 1));
 	if (!(s))
 		return (NULL);
 	if (!(slovo(s, str, c)))

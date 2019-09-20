@@ -42,12 +42,14 @@ void	ft_del(char **arr, char *str, t_shell *shell);
 void	ft_init_shell(t_shell *shell);
 char			**ft_strsplit_wide(char const *str, char c);
 int	ft_run_commands(char **commands, t_shell *shell);
+int ft_env_len(char **arr);
+char			**ft_strsplit_for_echo(char const *str, char c);
 
 /*
 **  commands
 */
 void	ft_cd(char *str);
-void	ft_echo(char *str);
+void	ft_echo(char *str1);
 void	ft_pwd(char *str, t_shell *shell);
 void	ft_env(t_shell *shell, char *str);
 void	ft_setenv(t_shell *shell, char *str);

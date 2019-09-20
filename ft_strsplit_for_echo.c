@@ -1,18 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dholiday <dholiday@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkami <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 21:52:18 by dholiday          #+#    #+#             */
-/*   Updated: 2019/05/22 17:14:44 by dholiday         ###   ########.fr       */
+/*   Created: 2019/09/16 18:32:08 by mkami             #+#    #+#             */
+/*   Updated: 2019/09/16 18:32:10 by mkami            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
-#include "libft.h"
+#include "shell.h"
+
+static int		ft_sum(char const *str, char c)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (str[i] != '\0')
+	{
+        if (str[i] == 34)
+        {
+            while (str[i] != 34 && str[i] != '\0')
+				i++;
+			k++;
+        }
+		else if (str[i] != c)
+		{
+			while (str[i] != c && str[i] != '\0')
+				i++;
+			k++;
+		}
+		else
+			while (str[i] == c)
+				i++;
+	}
+	return (k);
+}
 
 static void		del(char **s, int i)
 {
@@ -35,7 +61,19 @@ static int		slovo(char **s, char const *str, char c)
 	while (str[i] != '\0')
 	{
 		j = 0;
-		if (str[i] != c)
+        if (str[i] == 34)
+        {
+            while (str[i] != 34 && str[i++] != '\0')
+				j++;
+			s[k] = (char*)malloc(sizeof(char) * (j + 1));
+			if (!(s[k]))
+			{
+				del(s, k);
+				return (0);
+			}
+			k++;
+        }
+		else if (str[i] != c)
 		{
 			while (str[i] != c && str[i++] != '\0')
 				j++;
@@ -48,7 +86,8 @@ static int		slovo(char **s, char const *str, char c)
 			k++;
 		}
 		else
-			i++;
+			while (str[i] == c)
+				i++;
 	}
 	return (1);
 }
@@ -64,6 +103,13 @@ static void		record(char **s, char const *str, char c)
 	while (str[i] != '\0')
 	{
 		j = -1;
+        if (str[i] == 34)
+        {
+            while (str[i] != 34 && str[i] != '\0')
+				s[k][++j] = str[i++];
+			s[k][++j] = '\0';
+			k++;
+        }
 		if (str[i] != c)
 		{
 			while (str[i] != c && str[i] != '\0')
@@ -72,12 +118,13 @@ static void		record(char **s, char const *str, char c)
 			k++;
 		}
 		else
-			i++;
+			while (str[i] == c)
+				i++;
 	}
 	s[k] = 0;
 }
 
-char			**ft_strsplit(char const *str, char c)
+char			**ft_strsplit_for_echo(char const *str, char c)
 {
 	int		sum;
 	char	**s;
@@ -86,8 +133,8 @@ char			**ft_strsplit(char const *str, char c)
 	i = 0;
 	if (!(str))
 		return (NULL);
-	sum = ft_sum_w(str, c);
-	s = (char**)malloc(sizeof(*s) * (sum + 1));
+	sum = ft_sum(str, c);
+	s = (char**)malloc(sizeof(char*) * (sum + 1));
 	if (!(s))
 		return (NULL);
 	if (!(slovo(s, str, c)))

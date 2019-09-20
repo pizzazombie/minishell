@@ -52,13 +52,15 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
         {
  //           ft_printf("WEEEEEEE!!!!!! Find it!\n");
             ft_run_bin(lock, args, shell->env);
-            
+            ft_free_mas(args);
+            ft_free_mas(path);
             return (1);
         }
         i++;
         free(lock);
     }
     ft_free_mas(args);
+    ft_free_mas(path);
     return (-1);
 }
 void    ft_command_not_found(char *str)
@@ -66,6 +68,12 @@ void    ft_command_not_found(char *str)
     char **args;
 
     args = ft_strsplit_wide(str, ' ');
+    if (args[0] == 0)
+    {
+        ft_free_mas(args);
+    //    ft_putchar('\n');
+        return ;
+    }
     ft_putstr("minishell: command not found: ");
 	ft_putendl(args[0]);
     ft_free_mas(args);
