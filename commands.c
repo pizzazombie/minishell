@@ -22,6 +22,8 @@ void	ft_cd_to_path(char *path, t_shell *shell)
 	{
 		temp = ft_strjoin("setenv OLDPWD ", here);
 		ft_setenv(shell, temp);
+		free(shell->oldpwd);
+		shell->oldpwd = ft_strdup(here);
 		free(temp);
 		temp = ft_strjoin("setenv PWD ", path);
 		ft_setenv(shell, temp);
@@ -30,6 +32,11 @@ void	ft_cd_to_path(char *path, t_shell *shell)
 		shell->pwd = ft_strdup(path);
 
 	}
+	else
+	{
+		ft_printf("%s: No such file or directory.\n", path);
+	}
+	
 }
 void	ft_cd(char *str, t_shell *shell)
 {
@@ -53,15 +60,17 @@ void	ft_cd(char *str, t_shell *shell)
 		ft_free_mas(args);
 		return ;
 	}
-	else if (args[1] == 0 || ft_strncmp(args[1], "--", 2) == 0 || ft_strncmp(args[1], "~", 1) == 0)
+	else if (args[1] == 0 || (ft_strncmp(args[1], "--", 2) == 0 && args[1][2] == '\0') || (ft_strncmp(args[1], "~", 1) == 0 && args[1][1] == '\0'))
 	{
 		ft_cd_to_path(shell->home, shell);
 	}
+	else if (ft_strncmp(args[1], "-", 1) == 0 && args[1][1] == '\0')
+		ft_cd_to_path(shell->oldpwd, shell);
 	else
 	{
 		ft_cd_to_path(args[1], shell);
 	}
-	ft_putchar('\n');
+	//ft_putchar('\n');
 }
 int ft_str_len_without_br(char *str)
 {
