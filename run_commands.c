@@ -54,6 +54,7 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
             ft_run_bin(lock, args, shell->env);
             ft_free_mas(args);
             ft_free_mas(path);
+            free(lock);
             return (1);
         }
         i++;

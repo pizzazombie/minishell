@@ -69,7 +69,7 @@ void	ft_del(char **arr, char *str, t_shell *shell)
 
 void	ft_init_shell(t_shell *shell)
 {
-	shell = (t_shell *)malloc(sizeof(shell));
+	//shell = (t_shell *)malloc(sizeof(shell));
 	shell->location = NULL;
 	shell->env = NULL;
 	shell->env_vars = 0;

@@ -51,14 +51,14 @@ void	ft_cd(char *str, t_shell *shell)
 	{
 		ft_putstr("minishell: command not found: ");
 		ft_putendl(args[0]);
-		ft_free_mas(args);
-		return ;
+//		ft_free_mas(args);
+//		return ;
 	}
 	else if (args[1] != 0 && args[2] != 0)
 	{
 		ft_putendl("cd: Too many arguments.");
-		ft_free_mas(args);
-		return ;
+//		ft_free_mas(args);
+//		return ;
 	}
 	else if (args[1] == 0 || (ft_strncmp(args[1], "--", 2) == 0 && args[1][2] == '\0') || (ft_strncmp(args[1], "~", 1) == 0 && args[1][1] == '\0'))
 	{
@@ -70,5 +70,7 @@ void	ft_cd(char *str, t_shell *shell)
 	{
 		ft_cd_to_path(args[1], shell);
 	}
+    ft_free_mas(args);
+//		return ;
 	//ft_putchar('\n');
 }
