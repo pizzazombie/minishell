@@ -21,7 +21,7 @@ char	*get_env_var(char **env, char *var)
 	while (env[++i])
 	{
 		tmp = ft_strjoin(var, "=");
-		if (ft_strncmp(env[i], tmp, ft_strlen(tmp)))
+		if (ft_strncmp(env[i], tmp, ft_strlen(tmp)) == 0)
 		{
 			free(tmp);
 			return (ft_strchr(env[i], '=') + 1);

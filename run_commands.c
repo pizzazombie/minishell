@@ -110,8 +110,8 @@ int	ft_run_commands(char **commands, t_shell *shell)
 		}
 		else if (ft_strncmp(commands[i], "echo ", 5) == 0)
 			ft_echo(commands[i] + 5);
-		else if (ft_strncmp(commands[i], "cd ", 3) == 0)
-			ft_cd(commands[i]);
+		else if (ft_strncmp(commands[i], "cd", 2) == 0)
+			ft_cd(commands[i], shell);
 		else if (ft_strncmp(commands[i], "setenv ", 6) == 0)
 			ft_setenv(shell, commands[i]);
 		else if (ft_strncmp(commands[i], "unsetenv", 8) == 0)

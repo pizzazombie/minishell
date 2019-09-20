@@ -98,18 +98,22 @@ int main(int ac, char **av, char **environ)
 
 	t_shell shell;
 
-
+//	ft_printf("first\n");
 	ft_init_shell(&shell);
+//	ft_printf("after init shell\n");
 	if ((shell.env = ft_init_env(environ, &shell)) == NULL)
 		return (1);
 	//str = ft_strnew(100);
+//	ft_printf("WOWOWO1\n");
 	while (1)
 	{
+	//	ft_printf("before disp\n");
 		ft_display_path(&shell);
 		get_next_line(0, &str);
 		str = ft_parse_input(&shell, str);
 //		ft_printf("%s\n", str);
 		commands = ft_strsplit_wide(str, ';');
+//		ft_printf("before run cmnds\n");
 		if (ft_run_commands(commands, &shell) == 1)
 		{
 			ft_del(commands, str, &shell);

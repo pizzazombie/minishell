@@ -16,9 +16,13 @@ int ft_env_len(char **arr)
 {
 	int i;
 	i = 0;
-
+//	ft_printf("i'm im env len\n");
 	while (arr[i] != 0)
+	{
+//		printf("i = %d\n", i);
 		i++;
+	}
+//		printf("env len end with i = %d\n", i);
 	return (i);
 }
 char **ft_remove_var(t_shell *shell, char *name)

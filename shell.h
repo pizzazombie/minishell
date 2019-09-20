@@ -30,7 +30,11 @@ typedef struct		s_shell
 {
 	int				env_vars;
 	char			*location;
+	char			*pwd;
+	char			*oldpwd;
+	char			*home;
 	char			**env;
+	
 	//struct s_param	*next;
 }					t_shell;
 
@@ -48,7 +52,7 @@ char			**ft_strsplit_for_echo(char const *str, char c);
 /*
 **  commands
 */
-void	ft_cd(char *str);
+void	ft_cd(char *str, t_shell *shell);
 void	ft_echo(char *str1);
 void	ft_pwd(char *str, t_shell *shell);
 void	ft_env(t_shell *shell, char *str);
