@@ -43,12 +43,13 @@ void	ft_echo(char *str1)
 	char	**args;
 	int		index;
 
-	i = 0;
+	i = 1;
 	index = 0;
-	ft_putstr(str1);
 	str = ft_brakets(ft_strdup(str1));
 	args = ft_strsplit_wide(str, ' ');
-	if (ft_strncmp(args[0], "-n", 2) == 0 && args[0][2] == '\0')
+	if (args[1] == 0)
+		ft_putchar('\n');
+	else if (ft_strncmp(args[1], "-n", 2) == 0 && args[1][2] == '\0')
 	{
 		i++;
 		index++;

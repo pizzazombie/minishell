@@ -35,7 +35,21 @@ int		ft_check_name_length(char *str)
 		i++;
 	return (i);
 }
+char *ft_new_var_name(char *str, int i)
+{
+	char *name;
+	int j;
 
+	j = 0;
+	name = ft_strnew(ft_check_name_length(str + i));
+	while (str[i] != ' ' && str[i] != '\0')
+	{
+		name[j] = str[i];
+		j++;
+		i++;
+	}
+	return (name);
+}
 char	*ft_parse_input(t_shell *shell, char *str)
 {
 	int		i;
@@ -55,20 +69,16 @@ char	*ft_parse_input(t_shell *shell, char *str)
 			ii = i;
 			i++;
 			j = 0;
-			name = ft_strnew(ft_check_name_length(str + i));
-			while (str[i] != ' ' && str[i] != '\0')
-			{
-				name[j] = str[i];
-				j++;
-				i++;
-			}
+			name = ft_new_var_name(str, i);
 			if ((index = ft_find_env_var(shell->env, name)) == -1)
 			{
 				str[ii] = '\0';
 				temp = ft_strdup(str);
+				str[ii] = '$';
 				ii++;
 				while (str[ii] != ' ' && str[ii] != '\0')
 					ii++;
+				
 				temp2 = ft_strjoin(temp, str + ii);
 				free(str);
 				str = temp2;
@@ -114,6 +124,7 @@ int		main(int ac, char **av, char **environ)
 		return (1);
 	while (1)
 	{
+		
 		ft_display_path(&shell);
 		signal(SIGINT, ft_signal);
 		get_next_line(0, &str);
