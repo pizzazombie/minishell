@@ -38,12 +38,22 @@ void	ft_cd_to_path(char *path, t_shell *shell)
 	}
 	
 }
-void	ft_cd(char *str, t_shell *shell)
+void	ft_cd(char *str1, t_shell *shell)
 {
 	char **args;
-	char *path;
+	char *str;
 	char *oldpath;
 
+	if (ft_is_qoute(str1) == -1)
+		while (ft_is_qoute(str1) == -1)
+		{
+			str1 = ft_qoute(str1);
+			str = ft_brakets(str1);
+			free(str1);
+
+		}
+	else
+		str = ft_brakets(str1);
 	args = ft_strsplit_wide(str, ' ');
 	//path = get_env_var(shell->env, "PWD");
 	//oldpath = get_env_var(shell->env, "PWD");

@@ -82,6 +82,10 @@ char *ft_parse_input(t_shell *shell, char *str)
 				continue ;
 			}
 		}
+/*		else if (str[i] == '~')
+		{
+			temp = ft_strjoin()
+		}*/
 		else
 		{
 			i++;

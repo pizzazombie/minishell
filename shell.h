@@ -48,7 +48,9 @@ char			**ft_strsplit_wide(char const *str, char c);
 int	ft_run_commands(char **commands, t_shell *shell);
 int ft_env_len(char **arr);
 char			**ft_strsplit_for_echo(char const *str, char c);
-
+char *ft_qoute(char *str_or);
+int ft_is_qoute(char *str);
+char *ft_brakets(char *str);
 /*
 **  commands
 */
