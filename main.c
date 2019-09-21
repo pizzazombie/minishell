@@ -31,7 +31,7 @@ int		ft_check_name_length(char *str)
 	int i;
 
 	i = 0;
-	while (str[i] != ' ' && str[i] != '\0')
+	while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0')
 		i++;
 	return (i);
 }

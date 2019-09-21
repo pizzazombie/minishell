@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"shell.h": "c"
+		"shell.h": "c",
+		"stat.h": "c",
+		"unistd.h": "c",
+		"wait.h": "c"
 	}
 }

@@ -20,7 +20,7 @@ void	ft_display_path(t_shell *shell)
 
 	str = getcwd(buf, 4000);
 	ft_printf("\033[34;1;1m%s\033[0m", str);
-	ft_putstr(prompt);
+	ft_putstr(g_prompt);
 }
 
 void	ft_free_mas(char **arr)
@@ -66,7 +66,7 @@ void	ft_init_shell(t_shell *shell)
 	shell->env = NULL;
 	shell->env_vars = 0;
 	shell->prmpt = 0;
-	prompt = "(つಠ ʖ̯ ಠ)つ";
+	g_prompt = "(つಠ ʖ̯ ಠ)つ";
 }
 
 void	ft_print_env(t_shell *shell)

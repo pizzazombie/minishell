@@ -36,6 +36,8 @@ char	*ft_brakets(char *str)
 
 	i = 0;
 	k = 0;
+	//if (ft_strchr(str, 34) == NULL && (ft_strchr(str, 39) == 0))
+	//	return (str);
 	temp = ft_strnew(ft_str_len_without_br(str));
 	while (str[i] != '\0')
 	{
@@ -69,7 +71,7 @@ int		ft_is_qoute(char *str)
 			q2++;
 		i++;
 	}
-	if (q % 2 == 0 && q2 % 2 == 0)
+	if ((q + 2) % 2 == 0 && (q2 + 2) % 2 == 0)
 		return (1);
 	else
 	{
