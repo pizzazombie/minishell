@@ -12,6 +12,17 @@
 
 #include "shell.h"
 
+void	ft_display_path(t_shell *shell)
+{
+	char *str;
+	char buf[4001];
+	char *p;
+
+	str = getcwd(buf, 4000);
+	ft_printf("\033[34;1;1m%s\033[0m", str);
+	ft_putstr(g_prompt);
+}
+
 void	ft_signal(int signal)
 {
 	char *str;

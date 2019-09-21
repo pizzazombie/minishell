@@ -22,6 +22,14 @@ int		ft_env_len(char **arr)
 	return (i);
 }
 
+void	ft_copy_env(char **new_env, t_shell *shell, int *i, int *j)
+{
+	new_env[*i] = ft_strdup(shell->env[*j]);
+	free(shell->env[*j]);
+	*i = *i + 1;
+	*j = *j + 1;
+}
+
 char	**ft_remove_var(t_shell *shell, char *name)
 {
 	int		index;
@@ -35,21 +43,11 @@ char	**ft_remove_var(t_shell *shell, char *name)
 		i = 0;
 		j = 0;
 		while (i < index)
-		{
-			new_env[i] = ft_strdup(shell->env[j]);
-			free(shell->env[j]);
-			i++;
-			j++;
-		}
+			ft_copy_env(new_env, shell, &i, &j);
 		free(shell->env[j]);
 		j++;
 		while (shell->env[j] != 0)
-		{
-			new_env[i] = ft_strdup(shell->env[j]);
-			free(shell->env[j]);
-			i++;
-			j++;
-		}
+			ft_copy_env(new_env, shell, &i, &j);
 		new_env[i] = 0;
 		free(shell->env);
 		shell->env_vars--;
