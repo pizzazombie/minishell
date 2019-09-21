@@ -12,44 +12,37 @@
 
 #include "shell.h"
 
-int ft_env_len(char **arr)
+int		ft_env_len(char **arr)
 {
 	int i;
+
 	i = 0;
-//	ft_printf("i'm im env len\n");
 	while (arr[i] != 0)
-	{
-//		printf("i = %d\n", i);
 		i++;
-	}
-//		printf("env len end with i = %d\n", i);
 	return (i);
 }
-char **ft_remove_var(t_shell *shell, char *name)
+
+char	**ft_remove_var(t_shell *shell, char *name)
 {
-	int index;
-	int i;
-	int j;
-	char **new_env;
+	int		index;
+	int		i;
+	int		j;
+	char	**new_env;
 
 	if ((index = ft_find_env_var(shell->env, name)) != -1)
 	{
-	//	printf("вделяем память под новый массив\n");
 		new_env = (char **)malloc(sizeof(char *) * (ft_env_len(shell->env)));
 		i = 0;
 		j = 0;
 		while (i < index)
 		{
 			new_env[i] = ft_strdup(shell->env[j]);
-	//		printf("копирую и фришу строку %s\n", shell->env[j]);
 			free(shell->env[j]);
 			i++;
 			j++;
 		}
-		//new_env[i] = ft_strdup(shell->env[j]);
 		free(shell->env[j]);
 		j++;
-		//i--;
 		while (shell->env[j] != 0)
 		{
 			new_env[i] = ft_strdup(shell->env[j]);
@@ -59,22 +52,18 @@ char **ft_remove_var(t_shell *shell, char *name)
 		}
 		new_env[i] = 0;
 		free(shell->env);
-		
 		shell->env_vars--;
 		return (new_env);
-
 	}
 	else
-	{
 		return (shell->env);
-	}
-	
 }
+
 void	ft_remove_var22(t_shell *shell, char *name)
 {
-	int index;
-	int i;
-	char **new_env;
+	int		index;
+	int		i;
+	char	**new_env;
 
 	if ((index = ft_find_env_var(shell->env, name)) != -1)
 	{
@@ -82,10 +71,11 @@ void	ft_remove_var22(t_shell *shell, char *name)
 		shell->env[index] = 0;
 	}
 }
+
 void	ft_unsetenv(t_shell *shell, char *str)
 {
-	char **args;
-	int i;
+	char	**args;
+	int		i;
 
 	args = ft_strsplit_wide(str, ' ');
 	i = 1;
@@ -107,8 +97,5 @@ void	ft_unsetenv(t_shell *shell, char *str)
 		ft_putstr("minishell: command not found: ");
 		ft_putendl(args[0]);
 	}
-	
-//	ft_printf("удаление прошло успешно!\n");
 	ft_free_mas(args);
-	
 }

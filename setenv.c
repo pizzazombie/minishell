@@ -37,7 +37,6 @@ char	**set_env_var(t_shell *shell, char *name, char *value)
 	tmp = ft_strjoin("=", value);
 	if (shell->env[pos])
 	{
-		
 		free(shell->env[pos]);
 		if (value)
 			shell->env[pos] = ft_strjoin(name, tmp);
@@ -52,7 +51,6 @@ char	**set_env_var(t_shell *shell, char *name, char *value)
 			shell->env[pos] = ft_strjoin(name, tmp);
 		else
 			shell->env[pos] = ft_strjoin(name, "=");
-//		ft_printf("%s variable done\n", name);
 	}
 	free(tmp);
 	return (shell->env);
@@ -60,8 +58,8 @@ char	**set_env_var(t_shell *shell, char *name, char *value)
 
 void	ft_setenv(t_shell *shell, char *str)
 {
-	char **args;
-	int index;
+	char	**args;
+	int		index;
 
 	args = ft_strsplit_wide(str, ' ');
 	if (args[0][6] == '\0' && args[1] == 0)
@@ -70,7 +68,6 @@ void	ft_setenv(t_shell *shell, char *str)
 		ft_free_mas(args);
 		return ;
 	}
-	
 	if (args[0][6] != '\0' && args[0][6] != ' ')
 	{
 		ft_putstr("minishell: command not found: ");
@@ -78,8 +75,6 @@ void	ft_setenv(t_shell *shell, char *str)
 	}
 	else
 		shell->env = set_env_var(shell, args[1], args[2]);
-	
-		//env = ft_set_env_var(env, index, args[2]);
 	ft_free_mas(args);
 	return ;
 }

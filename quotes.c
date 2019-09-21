@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-int ft_str_len_without_br(char *str)
+int		ft_str_len_without_br(char *str)
 {
 	int i;
 	int k;
@@ -27,11 +27,12 @@ int ft_str_len_without_br(char *str)
 	}
 	return (i - k);
 }
-char *ft_brakets(char *str)
+
+char	*ft_brakets(char *str)
 {
-	int i;
-	int k;
-	char *temp;
+	int		i;
+	int		k;
+	char	*temp;
 
 	i = 0;
 	k = 0;
@@ -50,49 +51,53 @@ char *ft_brakets(char *str)
 	free(str);
 	return (temp);
 }
-int ft_is_qoute(char *str)
+
+int		ft_is_qoute(char *str)
 {
 	int i;
 	int q;
-    int q2;
+	int q2;
 
 	i = 0;
 	q = 0;
-    q2 = 0;
+	q2 = 0;
 	while (str[i] != '\0')
 	{
 		if (str[i] == 39)
 			q++;
-        else if (str[i] == 34)
-            q2++;
+		else if (str[i] == 34)
+			q2++;
 		i++;
 	}
 	if (q % 2 == 0 && q2 % 2 == 0)
 		return (1);
 	else
 	{
-        if (q % 2 != 0)
-		    return (-39);
-        if (q2 % 2 != 0)
-            return (-34);
+		if (q % 2 != 0)
+			return (-39);
+		if (q2 % 2 != 0)
+			return (-34);
 	}
 	return (-2);
 }
-char *ft_put_n(char *str)
+
+char	*ft_put_n(char *str)
 {
 	char *temp;
+
 	temp = ft_strjoin(str, "\n");
 	free(str);
 	return (temp);
 }
-char *ft_qoute(char *str_or)
-{
-	char *str1;
-	char *temp;
-	char *str;
-    int q;
 
-    q = (-1) * ft_is_qoute(str_or);
+char	*ft_qoute(char *str_or)
+{
+	char	*str1;
+	char	*temp;
+	char	*str;
+	int		q;
+
+	q = (-1) * ft_is_qoute(str_or);
 	str = ft_strdup(str_or);
 	free(str_or);
 	q == 34 ? ft_putstr("dquote> ") : ft_putstr("quote> ");
@@ -100,9 +105,7 @@ char *ft_qoute(char *str_or)
 	str = ft_put_n(str);
 	while (ft_strchr(str1, q) == NULL)
 	{
-		
 		temp = ft_strjoin(str, str1);
-		
 		free(str1);
 		free(str);
 		str = temp;
@@ -110,9 +113,8 @@ char *ft_qoute(char *str_or)
 		str = ft_put_n(str);
 	}
 	temp = ft_strjoin(str, str1);
-		
-		free(str1);
-		free(str);
-		str = temp;
+	free(str1);
+	free(str);
+	str = temp;
 	return (str);
 }

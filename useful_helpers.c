@@ -59,8 +59,7 @@ static int		slovo(char **s, char const *str, char c)
 		{
 			while (str[i] != c && str[i++] != '\0')
 				j++;
-			s[k] = (char*)malloc(sizeof(char) * (j + 1));
-			if (!(s[k]))
+			if (!(s[k] = (char*)malloc(sizeof(char) * (j + 1))))
 			{
 				del(s, k);
 				return (0);
