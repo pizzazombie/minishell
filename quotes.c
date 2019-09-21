@@ -47,7 +47,7 @@ char *ft_brakets(char *str)
 			i++;
 		}
 	}
-	//free(str);
+	free(str);
 	return (temp);
 }
 int ft_is_qoute(char *str)

@@ -28,7 +28,7 @@ static int		ft_sum(char const *str, char c)
 			k++;
 		}
 		else
-			while (str[i] == c)
+			while (str[i] == c || str[i] == '\t')
 				i++;
 	}
 	return (k);
@@ -68,7 +68,7 @@ static int		slovo(char **s, char const *str, char c)
 			k++;
 		}
 		else
-			while (str[i] == c)
+			while (str[i] == c || str[i] == '\t')
 				i++;
 	}
 	return (1);
@@ -93,7 +93,7 @@ static void		record(char **s, char const *str, char c)
 			k++;
 		}
 		else
-			while (str[i] == c)
+			while (str[i] == c || str[i] == '\t')
 				i++;
 	}
 	s[k] = 0;

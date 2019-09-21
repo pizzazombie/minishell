@@ -11,7 +11,19 @@
 /* ************************************************************************** */
 
 #include "shell.h"
+void	ft_signal(int signal)
+{
+	char *str;
+	char buf[4001];
 
+	if (signal == SIGINT)
+	{
+		ft_putchar('\n');
+		str = getcwd(buf, 4000);
+		ft_printf("\033[34;1;1m%s\033[0m", str);
+		ft_putstr("(つಠ ʖ̯ ಠ)つ");
+	}
+}
 int	ft_check_name_length(char *str)
 {
 	int i;
@@ -114,6 +126,7 @@ int main(int ac, char **av, char **environ)
 	{
 	//	ft_printf("before disp\n");
 		ft_display_path(&shell);
+		signal(SIGINT, ft_signal);
 		get_next_line(0, &str);
 		if (ft_is_qoute(str) < 0)
 			while (ft_is_qoute(str) < 0)

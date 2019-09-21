@@ -16,6 +16,11 @@ void    ft_run_bin(char *lock, char **args, char **env)
 {
     pid_t pid;
 
+    if (access (args[0], 1) == -1)
+    {
+        ft_printf("minishell: permission denied: %s\n", args[0]);
+            return ;
+    }
     pid = fork();
     if (pid == 0)
         execve(lock, args, env);
@@ -35,6 +40,13 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
     args = ft_strsplit_wide(str, ' ');
     if ((index = ft_find_env_var(shell->env, "PATH")) == -1)
     {
+        if (lstat(args[0], &bin_stat) != -1)
+        {
+ //           ft_printf("WEEEEEEE!!!!!! Find it!\n");
+            ft_run_bin(args[0], args, shell->env);
+            ft_free_mas(args);
+            return (1);
+        }
         ft_free_mas(args);
         return (-1);
     }
@@ -47,7 +59,7 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
         
         lock = ft_strjoin(temp, args[0]);
         free(temp);
- //       ft_printf("lock = %s\n", lock);
+  //      ft_printf("lock = %s\n", lock);
         if (lstat(args[0], &bin_stat) != -1)
         {
             ft_run_bin(args[0], args, shell->env);
@@ -65,6 +77,7 @@ int check_bin_in_path_and_run(t_shell *shell, char *str)
             free(lock);
             return (1);
         }
+        
         i++;
         free(lock);
     }

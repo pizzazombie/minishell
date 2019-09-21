@@ -52,7 +52,7 @@ char	**set_env_var(t_shell *shell, char *name, char *value)
 			shell->env[pos] = ft_strjoin(name, tmp);
 		else
 			shell->env[pos] = ft_strjoin(name, "=");
-		ft_printf("%s variable done\n", name);
+//		ft_printf("%s variable done\n", name);
 	}
 	free(tmp);
 	return (shell->env);

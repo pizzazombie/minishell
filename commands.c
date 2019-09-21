@@ -23,7 +23,7 @@ void	ft_echo(char *str1)
 
 	i = 0;
 	index = 0;
-	str = ft_brakets(str1);
+	str = ft_brakets(ft_strdup(str1));
 	args = ft_strsplit_wide(str, ' ');
 	if (ft_strncmp(args[0], "-n", 2) == 0 && args[0][2] == '\0')
 	{
