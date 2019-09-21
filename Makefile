@@ -18,7 +18,7 @@ CFLAGS =  -I. -I$(LIBFTPATH) -Iinc -g3
 CC = gcc
 
 
-SRC = main.c commands.c quotes.c helpers.c cd.c env.c setenv.c unsetenv.c useful_helpers.c run_commands.c 
+SRC = main.c commands.c parse_input.c quotes.c helpers.c cd.c env.c setenv.c unsetenv.c useful_helpers.c run_commands.c 
 
 OBJ = $(SRC:%.c=%.o)
 

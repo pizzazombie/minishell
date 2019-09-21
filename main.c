@@ -26,89 +26,17 @@ void	ft_signal(int signal)
 	}
 }
 
-int		ft_check_name_length(char *str)
+char	*ft_get_input(char *str, t_shell *shell)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0')
-		i++;
-	return (i);
-}
-char *ft_new_var_name(char *str, int i)
-{
-	char *name;
-	int j;
-
-	j = 0;
-	name = ft_strnew(ft_check_name_length(str + i));
-	while (str[i] != ' ' && str[i] != '\0')
-	{
-		name[j] = str[i];
-		j++;
-		i++;
-	}
-	return (name);
-}
-char	*ft_parse_input(t_shell *shell, char *str)
-{
-	int		i;
-	int		j;
-	int		ii;
-	int		index;
-	char	*temp;
-	char	*temp2;
-	char	*name;
-
-	i = 0;
-	ii = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] != '\0')
-		{
-			ii = i;
-			i++;
-			j = 0;
-			name = ft_new_var_name(str, i);
-			if ((index = ft_find_env_var(shell->env, name)) == -1)
-			{
-				str[ii] = '\0';
-				temp = ft_strdup(str);
-				str[ii] = '$';
-				ii++;
-				while (str[ii] != ' ' && str[ii] != '\0')
-					ii++;
-				
-				temp2 = ft_strjoin(temp, str + ii);
-				free(str);
-				str = temp2;
-				free(temp);
-				i = 0;
-				free(name);
-				continue ;
-			}
-			else
-			{
-				str[ii] = '\0';
-				temp = ft_strdup(str);
-				ii++;
-				while (str[ii] != ' ' && str[ii] != '\0')
-					ii++;
-				temp2 = ft_strjoin(temp, ft_strchr(shell->env[index], '=') + 1);
-				free(temp);
-				temp = ft_strjoin(temp2, str + ii);
-				free(temp2);
-				str = temp;
-				i = 0;
-				free(name);
-				continue ;
-			}
-		}
-		else
-		{
-			i++;
-		}
-	}
+	ft_display_path(shell);
+	signal(SIGINT, ft_signal);
+	get_next_line(0, &str);
+	if (ft_is_qoute(str) < 0)
+		while (ft_is_qoute(str) < 0)
+			str = ft_qoute(str);
+	if (ft_strncmp(str, "echo ", 5) != 0)
+		str = ft_brakets(str);
+	str = ft_parse_input(shell, str);
 	return (str);
 }
 
@@ -124,16 +52,7 @@ int		main(int ac, char **av, char **environ)
 		return (1);
 	while (1)
 	{
-		
-		ft_display_path(&shell);
-		signal(SIGINT, ft_signal);
-		get_next_line(0, &str);
-		if (ft_is_qoute(str) < 0)
-			while (ft_is_qoute(str) < 0)
-				str = ft_qoute(str);
-		if (ft_strncmp(str, "echo ", 5) != 0)
-			str = ft_brakets(str);
-		str = ft_parse_input(&shell, str);
+		str = ft_get_input(str, &shell);
 		commands = ft_strsplit_wide(str, ';');
 		if (ft_run_commands(commands, &shell) == 1)
 		{

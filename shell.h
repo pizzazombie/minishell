@@ -39,6 +39,12 @@ typedef struct		s_shell
 	char			**env;
 }					t_shell;
 
+typedef struct		s_var
+{
+	int				i;
+	int				j;
+}					t_var;
+
 void				ft_print_env(t_shell *shell);
 void				ft_display_path(t_shell *shell);
 char				**ft_init_env(char **environ, t_shell *shell);
@@ -53,6 +59,7 @@ char				*ft_qoute(char *str_or);
 int					ft_is_qoute(char *str);
 char				*ft_brakets(char *str);
 void				ft_change_prompt(t_shell *shell);
+char	*ft_parse_input(t_shell *shell, char *str);
 /*
 **  commands
 */

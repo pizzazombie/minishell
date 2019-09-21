@@ -37,13 +37,12 @@ void	ft_echo_helper(char **args, char *str, int index)
 
 void	ft_echo(char *str1)
 {
-	int		i;
-	int		j;
+	t_var	p;
 	char	*str;
 	char	**args;
 	int		index;
 
-	i = 1;
+	p.i = 1;
 	index = 0;
 	str = ft_brakets(ft_strdup(str1));
 	args = ft_strsplit_wide(str, ' ');
@@ -51,16 +50,16 @@ void	ft_echo(char *str1)
 		ft_putchar('\n');
 	else if (ft_strncmp(args[1], "-n", 2) == 0 && args[1][2] == '\0')
 	{
-		i++;
+		p.i++;
 		index++;
 	}
-	while (args[i] != 0)
+	while (args[p.i] != 0)
 	{
-		j = 0;
-		while (args[i][j] == ' ')
-			j++;
-		ft_printf("%s ", args[i] + j);
-		i++;
+		p.j = 0;
+		while (args[p.i][p.j] == ' ')
+			p.j++;
+		ft_printf("%s ", args[p.i] + p.j);
+		p.i++;
 	}
 	ft_echo_helper(args, str, index);
 }
