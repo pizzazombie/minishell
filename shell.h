@@ -26,9 +26,11 @@
 # include <dirent.h>
 #include <sys/wait.h>
 
+char *prompt;
 typedef struct		s_shell
 {
 	int				env_vars;
+	int				prmpt;
 	char			*location;
 	char			*pwd;
 	char			*oldpwd;
@@ -51,6 +53,7 @@ char			**ft_strsplit_for_echo(char const *str, char c);
 char *ft_qoute(char *str_or);
 int ft_is_qoute(char *str);
 char *ft_brakets(char *str);
+void	ft_change_prompt(t_shell *shell);
 /*
 **  commands
 */

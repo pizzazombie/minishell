@@ -12,7 +12,20 @@
 
 #include "shell.h"
 
-
+void	ft_change_prompt(t_shell *shell)
+{
+	shell->prmpt % 10 == 1 ? prompt = "⚡" : prompt;
+	shell->prmpt % 10 == 2 ? prompt = "(ノಠ益ಠ)ノ彡┻━┻" : prompt;
+	shell->prmpt % 10 == 3 ? prompt = "╰( ͡° ͜ʖ ͡° )つ──☆*:・ﾟ" : prompt;
+	shell->prmpt % 10 == 4 ? prompt = "༼ つ ▀̿_▀̿ ༽つ" : prompt;
+	shell->prmpt % 10 == 5 ? prompt = "(ง ͡ʘ ͜ʖ ͡ʘ)ง" : prompt;
+	shell->prmpt % 10 == 6 ? prompt = "(⌐■_■)–︻╦╤─" : prompt;
+	shell->prmpt % 10 == 7 ? prompt = "▄︻̷̿┻̿═━一" : prompt;
+	shell->prmpt % 10 == 8 ? prompt = "❤" : prompt;
+	shell->prmpt % 10 == 9 ? prompt = "∞" : prompt;
+	shell->prmpt % 10 == 0 ? prompt = "$>" : prompt;
+	shell->prmpt++;
+}
 void	ft_echo(char *str1)
 {
 	int i;

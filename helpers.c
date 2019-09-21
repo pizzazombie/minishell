@@ -21,7 +21,8 @@ void	ft_display_path(t_shell *shell)
 //	ft_printf("i'm in disp\n");
 	str = getcwd(buf, 4000);
 	ft_printf("\033[34;1;1m%s\033[0m", str);
-	ft_putstr("(つಠ ʖ̯ ಠ)つ");
+	ft_putstr(prompt);
+	//ft_putstr("(つಠ ʖ̯ ಠ)つ");
 	//shell->location = str;
 	//free(str);
 }
@@ -73,6 +74,8 @@ void	ft_init_shell(t_shell *shell)
 	shell->location = NULL;
 	shell->env = NULL;
 	shell->env_vars = 0;
+	shell->prmpt = 0;
+	prompt = "(つಠ ʖ̯ ಠ)つ";
 }
 
 void	ft_print_env(t_shell *shell)

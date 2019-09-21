@@ -16,11 +16,11 @@ void    ft_run_bin(char *lock, char **args, char **env)
 {
     pid_t pid;
 
-    if (access (args[0], 1) == -1)
+  /*  if (access (args[0], 1) == -1)
     {
         ft_printf("minishell: permission denied: %s\n", args[0]);
             return ;
-    }
+    }*/
     pid = fork();
     if (pid == 0)
         execve(lock, args, env);
@@ -140,6 +140,8 @@ int	ft_run_commands(char **commands, t_shell *shell)
 			ft_unsetenv(shell, commands[i]);
 		else if (ft_strncmp(commands[i], "env", 3) == 0)
 			ft_env(shell, commands[i]);
+        else if (ft_strncmp(commands[i], "prompt", 6) == 0)
+			ft_change_prompt(shell);
 //		else if (ft_strncmp(commands[i], "pwd", 3) == 0)
 //			ft_pwd(commands[i], shell);
         else if (check_bin_in_path_and_run(shell, commands[i]) == -1)
