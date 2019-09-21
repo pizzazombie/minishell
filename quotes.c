@@ -36,8 +36,6 @@ char	*ft_brakets(char *str)
 
 	i = 0;
 	k = 0;
-	//if (ft_strchr(str, 34) == NULL && (ft_strchr(str, 39) == 0))
-	//	return (str);
 	temp = ft_strnew(ft_str_len_without_br(str));
 	while (str[i] != '\0')
 	{

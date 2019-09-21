@@ -59,7 +59,9 @@ char				*ft_qoute(char *str_or);
 int					ft_is_qoute(char *str);
 char				*ft_brakets(char *str);
 void				ft_change_prompt(t_shell *shell);
-char	*ft_parse_input(t_shell *shell, char *str);
+char				*ft_parse_input(t_shell *shell, char *str);
+void				ft_command_not_found(char *str);
+int					check_bin_in_path_and_run(t_shell *shell, char *str);
 /*
 **  commands
 */
@@ -69,6 +71,7 @@ void				ft_pwd(char *str, t_shell *shell);
 void				ft_env(t_shell *shell, char *str);
 void				ft_setenv(t_shell *shell, char *str);
 void				ft_unsetenv(t_shell *shell, char *str);
+int					ft_exit(char *str);
 
 /*
 **  env

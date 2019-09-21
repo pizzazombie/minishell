@@ -27,6 +27,42 @@ void	ft_change_prompt(t_shell *shell)
 	shell->prmpt++;
 }
 
+void	ft_command_not_found(char *str)
+{
+	char **args;
+
+	args = ft_strsplit_wide(str, ' ');
+	if (args[0] == 0)
+	{
+		ft_free_mas(args);
+		return ;
+	}
+	ft_putstr("minishell: command not found: ");
+	ft_putendl(args[0]);
+	ft_free_mas(args);
+}
+
+int		ft_exit(char *str)
+{
+	char **args;
+
+	args = ft_strsplit_wide(str, ' ');
+	if ((args[0][4] == '\0' || args[0][4] == ' ') && args[1] == 0)
+	{
+		ft_free_mas(args);
+		return (1);
+	}
+	if (args[0][4] != '\0' && args[0][4] != ' ')
+	{
+		ft_free_mas(args);
+		return (-1);
+	}
+	else
+		ft_putendl("exit: Expression Syntax.");
+	ft_free_mas(args);
+	return (-1);
+}
+
 void	ft_echo_helper(char **args, char *str, int index)
 {
 	if (index == 0)
