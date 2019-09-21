@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell.h"
+
 void	ft_signal(int signal)
 {
 	char *str;
@@ -24,28 +25,29 @@ void	ft_signal(int signal)
 		ft_putstr("(つಠ ʖ̯ ಠ)つ");
 	}
 }
-int	ft_check_name_length(char *str)
+
+int		ft_check_name_length(char *str)
 {
 	int i;
-	
+
 	i = 0;
 	while (str[i] != ' ' && str[i] != '\0')
 		i++;
 	return (i);
 }
-char *ft_parse_input(t_shell *shell, char *str)
+
+char	*ft_parse_input(t_shell *shell, char *str)
 {
-	int i;
-	int j;
-	int ii;
-	int index;
-	char *temp;
-	char *temp2;
-	char *name;
+	int		i;
+	int		j;
+	int		ii;
+	int		index;
+	char	*temp;
+	char	*temp2;
+	char	*name;
 
 	i = 0;
 	ii = 0;
-	//temp2 = ft_strnew(1);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] != '\0')
@@ -63,7 +65,6 @@ char *ft_parse_input(t_shell *shell, char *str)
 			if ((index = ft_find_env_var(shell->env, name)) == -1)
 			{
 				str[ii] = '\0';
-
 				temp = ft_strdup(str);
 				ii++;
 				while (str[ii] != ' ' && str[ii] != '\0')
@@ -79,7 +80,6 @@ char *ft_parse_input(t_shell *shell, char *str)
 			else
 			{
 				str[ii] = '\0';
-
 				temp = ft_strdup(str);
 				ii++;
 				while (str[ii] != ' ' && str[ii] != '\0')
@@ -94,64 +94,39 @@ char *ft_parse_input(t_shell *shell, char *str)
 				continue ;
 			}
 		}
-/*		else if (str[i] == '~')
-		{
-			temp = ft_strjoin()
-		}*/
 		else
 		{
 			i++;
 		}
-		
 	}
 	return (str);
 }
-int main(int ac, char **av, char **environ)
+
+int		main(int ac, char **av, char **environ)
 {
-	char *str1;
-	char *str;
-	char **commands;
-	//char **env;
+	char	*str1;
+	char	*str;
+	char	**commands;
+	t_shell	shell;
 
-	t_shell shell;
-
-//	ft_printf("first\n");
 	ft_init_shell(&shell);
-//	ft_printf("after init shell\n");
 	if ((shell.env = ft_init_env(environ, &shell)) == NULL)
 		return (1);
-	//str = ft_strnew(100);
-//	ft_printf("WOWOWO1\n");
 	while (1)
 	{
-	//	ft_printf("before disp\n");
 		ft_display_path(&shell);
 		signal(SIGINT, ft_signal);
 		get_next_line(0, &str);
 		if (ft_is_qoute(str) < 0)
 			while (ft_is_qoute(str) < 0)
-			{
 				str = ft_qoute(str);
-				
-				//free(str1);
-
-			}
 		if (ft_strncmp(str, "echo ", 5) != 0)
 			str = ft_brakets(str);
-		/*else
-		{
-			str = ft_brakets(str1);
-			free(str1);
-		}*/
 		str = ft_parse_input(&shell, str);
-//		ft_printf("%s\n", str);
 		commands = ft_strsplit_wide(str, ';');
-//		ft_printf("before run cmnds\n");
 		if (ft_run_commands(commands, &shell) == 1)
 		{
 			ft_del(commands, str, &shell);
-		//	ft_printf("WOWOWO\n");
-			//free(&shell); why abort???(
 			return (0);
 		}
 		else
@@ -160,10 +135,6 @@ int main(int ac, char **av, char **environ)
 			free(str);
 			continue ;
 		}
-		
-		
-		//ft_get_input()
-		
 	}
 	return (0);
 }

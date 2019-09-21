@@ -31,16 +31,16 @@ char	*get_env_var(char **env, char *var)
 	return (NULL);
 }
 
-int	ft_env_index(char **env, char *name)
+int		ft_env_index(char **env, char *name)
 {
-	int i;
-	char *temp;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	temp = ft_strjoin(name, "=");
 	while (env[i] != 0)
 	{
-		if (strncmp(env[i], temp, ft_strlen(name)) == 0)
+		if (ft_strncmp(env[i], temp, ft_strlen(name)) == 0)
 		{
 			free(temp);
 			return (i);
@@ -51,23 +51,22 @@ int	ft_env_index(char **env, char *name)
 	return (i);
 }
 
-int	ft_find_env_var(char **env, const char *name)
+int		ft_find_env_var(char **env, const char *name)
 {
-	int i;
-	char *temp;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	temp = ft_strjoin(name, "=");
 	while (env[i] != 0)
 	{
-		if (strncmp(env[i], temp, ft_strlen(temp)) == 0)
+		if (ft_strncmp(env[i], temp, ft_strlen(temp)) == 0)
 		{
 			free(temp);
 			return (i);
 		}
 		i++;
 	}
-//	ft_printf("No env var finded with name %s\n", name);
 	free(temp);
 	return (-1);
 }
@@ -77,12 +76,8 @@ void	ft_env(t_shell *shell, char *str)
 	char **args;
 
 	args = ft_strsplit_wide(str, ' ');
-
 	if (args[0][3] == '\0' && args[1] == 0)
-	{
 		ft_print_env(shell);
-		
-	}
 	else if (args[0][3] != '\0')
 	{
 		ft_putstr("minishell: command not found: ");
@@ -90,7 +85,6 @@ void	ft_env(t_shell *shell, char *str)
 	}
 	else
 	{
-		//args = ft_strsplit_wide(str, ' ');
 		if (args[1])
 		{
 			if (args[2])
@@ -100,9 +94,7 @@ void	ft_env(t_shell *shell, char *str)
 				return ;
 			}
 			ft_printf("env: %s: No such file or directory\n", args[1]);
-			//ft_print_env(shell);
 		}
-		
 	}
 	ft_free_mas(args);
 }

@@ -26,13 +26,14 @@ void	ft_change_prompt(t_shell *shell)
 	shell->prmpt % 10 == 0 ? prompt = "$>" : prompt;
 	shell->prmpt++;
 }
+
 void	ft_echo(char *str1)
 {
-	int i;
-	int j;
-	char *str;
-	char **args;
-	int index;
+	int		i;
+	int		j;
+	char	*str;
+	char	**args;
+	int		index;
 
 	i = 0;
 	index = 0;
@@ -47,9 +48,7 @@ void	ft_echo(char *str1)
 	{
 		j = 0;
 		while (args[i][j] == ' ')
-		{
 			j++;
-		}
 		ft_putstr(args[i] + j);
 		ft_putchar(' ');
 		i++;
@@ -58,17 +57,4 @@ void	ft_echo(char *str1)
 		ft_putchar('\n');
 	ft_free_mas(args);
 	free(str);
-	
-}
-void	ft_pwd(char *str, t_shell *shell)
-{
-	char **args = ft_strsplit_wide(str, ' ');
-
-	if (args[1] != 0)
-		ft_putstr("pwd: too many arguments\n");
-	else
-	{
-		ft_printf("%s\n", shell->location);
-	}
-	
 }
