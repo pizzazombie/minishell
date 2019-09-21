@@ -96,6 +96,7 @@ char *ft_parse_input(t_shell *shell, char *str)
 }
 int main(int ac, char **av, char **environ)
 {
+	char *str1;
 	char *str;
 	char **commands;
 	//char **env;
@@ -114,6 +115,21 @@ int main(int ac, char **av, char **environ)
 	//	ft_printf("before disp\n");
 		ft_display_path(&shell);
 		get_next_line(0, &str);
+		if (ft_is_qoute(str) < 0)
+			while (ft_is_qoute(str) < 0)
+			{
+				str = ft_qoute(str);
+				
+				//free(str1);
+
+			}
+		if (ft_strncmp(str, "echo ", 5) != 0)
+			str = ft_brakets(str);
+		/*else
+		{
+			str = ft_brakets(str1);
+			free(str1);
+		}*/
 		str = ft_parse_input(&shell, str);
 //		ft_printf("%s\n", str);
 		commands = ft_strsplit_wide(str, ';');

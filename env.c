@@ -99,7 +99,8 @@ void	ft_env(t_shell *shell, char *str)
 				ft_free_mas(args);
 				return ;
 			}
-			ft_print_env(shell);
+			ft_printf("env: %s: No such file or directory\n", args[1]);
+			//ft_print_env(shell);
 		}
 		
 	}
