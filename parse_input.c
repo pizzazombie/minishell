@@ -69,6 +69,7 @@ char	*ft_name_in_env(char *str, int ii, t_shell *shell, int index)
 	temp2 = ft_strjoin(temp, ft_strchr(shell->env[index], '=') + 1);
 	free(temp);
 	temp = ft_strjoin(temp2, str + ii);
+	free(str);
 	free(temp2);
 	str = temp;
 	return (str);
