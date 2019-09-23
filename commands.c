@@ -65,7 +65,7 @@ int		ft_exit(char *str)
 
 void	ft_echo_helper(char **args, char *str, int index)
 {
-	if (index == 0)
+	if (index == 0 && args[1] != 0)
 		ft_putchar('\n');
 	ft_free_mas(args);
 	free(str);
