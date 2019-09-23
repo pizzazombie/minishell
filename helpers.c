@@ -76,7 +76,7 @@ char	**ft_init_env(char **environ, t_shell *shell)
 	int		i;
 
 	i = 0;
-	env = (char **)malloc(sizeof(char *) * ft_env_len(environ));
+	env = (char **)malloc(sizeof(char *) * (ft_env_len(environ) + 1));
 	while (environ[i] != 0)
 	{
 		if ((env[i] = ft_strdup(environ[i])) == NULL)
