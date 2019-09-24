@@ -74,6 +74,7 @@ char	**ft_init_env(char **environ, t_shell *shell)
 {
 	char	**env;
 	int		i;
+	int		l;
 
 	i = 0;
 	env = (char **)malloc(sizeof(char *) * (ft_env_len(environ) + 1));
@@ -81,6 +82,8 @@ char	**ft_init_env(char **environ, t_shell *shell)
 	{
 		if ((env[i] = ft_strdup(environ[i])) == NULL)
 			return (NULL);
+		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
+			env[i][6] = env[i][6] + 1;
 		i++;
 	}
 	shell->env_vars = i;
