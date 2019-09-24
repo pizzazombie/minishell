@@ -37,6 +37,35 @@ void	ft_signal(int signal)
 	}
 }
 
+char	*ft_tilde(char *str, t_shell *shell)
+{
+	int		i;
+	int		ii;
+	char	*temp;
+	char	*before;
+	char	*temp2;
+
+	i = 0;
+	while (str[i] != '\0')
+		if (str[i] == '~')
+		{
+			temp = ft_strdup(str + i + 1);
+			str[i] = '\0';
+			before = ft_strdup(str);
+			temp2 = ft_strjoin(before, shell->home);
+			free(before);
+			before = ft_strjoin(temp2, temp);
+			free(temp2);
+			free(temp);
+			free(str);
+			str = before;
+			continue ;
+		}
+		else
+			i++;
+	return (str);
+}
+
 char	*ft_get_input(char *str, t_shell *shell)
 {
 	ft_display_path(shell);
@@ -48,6 +77,7 @@ char	*ft_get_input(char *str, t_shell *shell)
 	if (ft_strncmp(str, "echo ", 5) != 0)
 		str = ft_brakets(str);
 	str = ft_parse_input(shell, str);
+	str = ft_tilde(str, shell);
 	return (str);
 }
 
